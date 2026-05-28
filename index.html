@@ -22,7 +22,7 @@
       overflow-x: hidden;
     }
 
-    /* ----- ENTRANCE: صورة كاملة عالية الجودة مع تحسينات الإضاءة ----- */
+    /* ----- ENTRANCE: صورة عالية الجودة من مصدر موثوق + تأثيرات نور ----- */
     .grand-entrance {
       position: fixed;
       inset: 0;
@@ -49,7 +49,7 @@
       background: #000000;
     }
 
-    /* صورة الدخلة - جودة عالية وتأثير احترافي مثل hero-darken */
+    /* صورة الدخلة - الآن باستخدام نفس رابط الصورة عالية الجودة الذي تفضله */
     .tunnel-media {
       position: absolute;
       width: 100%;
@@ -69,7 +69,7 @@
     .entrance-darken {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.65) 100%);
+      background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.7) 100%);
       z-index: 2;
       pointer-events: none;
     }
@@ -644,19 +644,17 @@
 </head>
 <body>
 
-<!-- ENTRANCE: صورة كاملة عالية الجودة + طبقة داكنة مثل hero-darken + نص نوراني -->
+<!-- ENTRANCE: صورة عالية الجودة (نفس الصورة المفضلة) + طبقة داكنة مثل hero-darken + نص نوراني -->
 <div id="entranceOverlay" class="grand-entrance">
   <div class="tunnel-container">
-    <!-- صورة عالية الجودة جديدة من مصادر موثوقة تعبر عن رونق المتحف المصري الكبير -->
-    <img class="tunnel-media" src="https://i.postimg.cc/bvQvgnnT/gem-grand-hall.jpg" alt="المتحف المصري الكبير - بهو عظيم" 
-         onerror="this.onerror=null; this.src='https://cdn.gem.eg/media/5742/20221104-dsc_4372-edit-copy.jpeg?anchor=center&mode=crop&width=1920&height=1080';">
+    <!-- تم تغيير رابط الصورة إلى الرابط عالي الجودة الذي تفضله (home-banner2) للحصول على أفضل وضوح -->
+    <img class="tunnel-media" src="https://cdn.gem.eg/media/5223/home-banner2.jpeg?anchor=center&mode=crop&width=1920&height=1080" alt="المتحف المصري الكبير - بهو عظيم">
   </div>
   <!-- إضافة طبقة darken مثل hero-darken لتحسين ظهور النص -->
   <div class="entrance-darken"></div>
   <div class="hero-text-entrance">
     <h1>المتحف المصري الكبير</h1>
-    <div class="hiero-line">𓎛𓂋𓉔𓃀 𓀉𓂧𓀭 𓀉𓂧𓀭</div>
-    <div class="welcome-glow">يرحب بكم</div>
+    <div class="hiero-line">يرحب بكم</div>
   </div>
 </div>
 
@@ -666,7 +664,7 @@
   <!-- NAVBAR -->
   <nav class="navbar-gem">
     <div class="logo-area">
-      <img src="https://cdn.gem.eg/media/4180/sculpture-garden.jpeg?anchor=center&amp;mode=crop&amp;width=743&amp;height=480&amp;rnd=134049094740000000&amp;ver=2025.10.27.02" alt="GEM logo">
+      <img src="https://cdn.gem.eg/wwwroot/images/Logo.png?ver=2025.10.27.02" alt="GEM logo">
       <span>المتحف المصري الكبير</span>
     </div>
     <ul class="nav-links">
