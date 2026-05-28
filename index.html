@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>المتحف المصري الكبير - تجربة 3D</title>
+    <title>المتحف المصري الكبير - روعة التراث القديم</title>
     
     <!-- Google Fonts و Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- RESET & BASE STYLES (نفس الأسلوب الأصلي) --- */
+        /* --- RESET & BASE STYLES (تعديل كامل للتراث المصري) --- */
         * {
             margin: 0;
             padding: 0;
@@ -19,20 +19,20 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #0a0a0a;
+            background-color: #2b2418; /* لون ترابي غامق */
             overflow-x: hidden;
-            color: #fff;
+            color: #f5e7d9;
         }
 
-        /* --- المحتوى الأصلي (سيتم عرضه بعد انتهاء الأنيميشن) --- */
+        /* --- المحتوى الأصلي بعد التعديل (بطابع تراثي) --- */
         .website-content {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
             position: relative;
             z-index: 2;
-            background: #fff; /* الخلفية البيضاء للموقع الأصلي */
-            color: #333;
+            background: #faf3e8; /* خلفية ورق بردي فاتح */
+            color: #3e2a1f;
         }
 
         .website-content.visible {
@@ -40,7 +40,7 @@
             visibility: visible;
         }
 
-        /* --- Canvas 3D (يظهر خلف المحتوى وأثناء الأنيميشن) --- */
+        /* --- Canvas 3D (خلفية ثلاثية الأبعاد بأعمدة مصرية) --- */
         #canvas-3d {
             position: fixed;
             top: 0;
@@ -51,7 +51,7 @@
             display: block;
         }
 
-        /* --- طبقة الأنيميشن (التأثير البصري للدخول) --- */
+        /* --- طبقة الأنيميشن باستخدام الصورة التي أرسلتها --- */
         .animation-overlay {
             position: fixed;
             top: 0;
@@ -64,86 +64,131 @@
             justify-content: center;
             align-items: center;
             pointer-events: none;
-            transition: opacity 1.5s ease;
+            transition: opacity 1.8s ease;
             opacity: 1;
+            background-image: url('https://i.postimg.cc/nL8Prt1X/gem.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* تأثير التلاشي للصورة */
+        .animation-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4); /* طبقة داكنة لكتابة النص */
+            z-index: 1;
+        }
+
+        .animation-overlay .overlay-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffd966;
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            font-family: 'Cairo', sans-serif;
+            letter-spacing: 2px;
         }
 
         .animation-overlay.fade-out {
             opacity: 0;
         }
 
-        /* --- نسخنا نفس تصميم الهيدر والفوتر والمحتوى من الكود الأصلي --- */
-        /* أنا سأعيد صياغة الهيكل الأساسي ولكن بنفس الصور والمحتوى مع لمسات 3D */
-        
-        /* استيراد بعض أنماط الموقع الأصلي الأساسية */
+        /* --- تصميم الموقع بالطابع التراثي --- */
         .navbar {
-            background: rgba(255,255,255,0.98);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 1rem 0;
+            background: rgba(46, 34, 21, 0.95);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+            padding: 0.8rem 0;
             direction: rtl;
+            border-bottom: 2px solid #d4af37;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        .navbar_box_logo img { height: 60px; }
-        .buy-tickets-mobile-ar, .buy-tickets-mobile-eng { display: none; }
-        @media (max-width: 768px) {
-            .buy-tickets-desktop-english, .buy-tickets-desktop-arabic { display: none; }
-            .buy-tickets-mobile-ar, .buy-tickets-mobile-eng { display: block; }
+        .navbar_box_logo img { height: 60px; filter: drop-shadow(0 0 5px #b68b40); }
+        
+        /* أزرار وروابط ذهبية */
+        .nav-link, .navbar-nav .nav-link {
+            color: #f3d382 !important;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: 0.3s;
         }
+        .nav-link:hover { color: #ffeaae !important; text-shadow: 0 0 5px #b68b40; }
+        
         .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-header__title { font-size: 2.5rem; font-weight: 800; color: #b87c4f; margin-bottom: 1rem; }
-        .section-header__sub-title { color: #666; max-width: 700px; margin: 0 auto; }
-        .collections-section .three-sliders { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-        .three-sliders__slide { width: 300px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer; background: #fff; }
-        .three-sliders__slide:hover { transform: translateY(-10px); }
+        .section-header__title { font-size: 2.5rem; font-weight: 800; color: #c49a3f; margin-bottom: 1rem; text-shadow: 2px 2px 0 #3e2a1f; letter-spacing: 1px; }
+        .section-header__sub-title { color: #5e4b34; max-width: 700px; margin: 0 auto; font-weight: 500; }
+        
+        /* بطاقات المجموعات الأثرية */
+        .collections-section .three-sliders { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; }
+        .three-sliders__slide { width: 300px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 25px rgba(0,0,0,0.2); transition: transform 0.4s, box-shadow 0.4s; cursor: pointer; background: #fffaf0; border-bottom: 4px solid #d4af37; }
+        .three-sliders__slide:hover { transform: translateY(-12px); box-shadow: 0 20px 30px rgba(0,0,0,0.3); }
         .three-sliders__slide img { width: 100%; height: 300px; object-fit: cover; }
-        .three-sliders__slide-title { padding: 15px; text-align: center; font-weight: bold; color: #333; }
-        .hololens-section { background: #111; padding: 60px 0; position: relative; }
-        .hololens__backgroundImg { height: 500px; background-size: cover; background-position: center; border-radius: 20px; position: relative; }
-        .more-box { display: inline-block; margin-top: 20px; background: #b87c4f; color: white; padding: 10px 25px; border-radius: 30px; text-decoration: none; }
-        .footer { background: #1e1e1e; color: #ccc; padding: 40px 0; }
-        .visit-tabs__nav { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
-        .visit-tabs__nav-link { padding: 10px 20px; background: #eee; border-radius: 30px; color: #333; text-decoration: none; }
-        .visit-tabs__nav-link.active { background: #b87c4f; color: white; }
-        .visit-tabs__tab-content { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-        .visit-tabs__tab-item { width: 280px; background: #f9f9f9; border-radius: 15px; overflow: hidden; }
-        .visit-tabs__tab-img-wrp img { width: 100%; height: 200px; object-fit: cover; }
+        .three-sliders__slide-title { padding: 18px; text-align: center; font-weight: bold; color: #5a3a1f; background: #fff2e0; font-size: 1.1rem; }
         
-        /* تذييل سريع */
-        .footer__container { display: flex; justify-content: space-between; flex-wrap: wrap; }
-        .social-media-icons-container a { color: white; margin: 0 5px; font-size: 20px; }
+        /* قسم الهولولينس */
+        .hololens-section { background: #2f2419; padding: 60px 0; position: relative; border-top: 1px solid #d4af37; border-bottom: 1px solid #d4af37; }
+        .hololens__backgroundImg { height: 450px; background-size: cover; background-position: center; border-radius: 20px; position: relative; box-shadow: 0 0 0 5px #c49a3f, 0 15px 25px rgba(0,0,0,0.3); }
+        .more-box { display: inline-block; margin-top: 25px; background: #c49a3f; color: #2b1f12; font-weight: bold; padding: 12px 35px; border-radius: 40px; text-decoration: none; transition: 0.3s; border: 1px solid #ffdf8c; }
+        .more-box:hover { background: #e0b05e; color: #1f150a; transform: scale(1.03); }
         
-        /* تحسينات 3D */
-        [data-scroll] { transition: transform 0.5s ease; }
-        .three-sliders__slide, .visit-tabs__tab-item { transform-style: preserve-3d; }
+        /* Tabs التراثية */
+        .visit-tabs__nav { display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+        .visit-tabs__nav-link { padding: 10px 25px; background: #e3d5c0; border-radius: 50px; color: #4a341d; text-decoration: none; font-weight: 600; transition: 0.3s; border: 1px solid #c49a3f; }
+        .visit-tabs__nav-link.active { background: #c49a3f; color: #2b1f12; box-shadow: 0 0 10px rgba(196,154,63,0.5); }
+        .visit-tabs__tab-content { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; }
+        .visit-tabs__tab-item { width: 280px; background: #fff5e9; border-radius: 20px; overflow: hidden; transition: 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-bottom: 3px solid #c49a3f; }
+        .visit-tabs__tab-img-wrp img { width: 100%; height: 210px; object-fit: cover; }
+        
+        /* تذييل تراثي */
+        .footer { background: #1f180f; color: #e6d5b3; padding: 40px 0; border-top: 3px solid #c49a3f; }
+        .footer__container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .social-media-icons-container a { color: #e6c27a; margin: 0 8px; font-size: 26px; transition: 0.3s; }
+        .social-media-icons-container a:hover { color: #ffdf8c; transform: translateY(-3px); }
+        .copyrights__text { margin-top: 20px; text-align: center; color: #b89a60; }
+        
+        /* تحسينات للخطوط */
+        h1, h2, h3, .section-header__title { font-family: 'Cairo', sans-serif; font-weight: 800; }
+        button, .more-box, .visit-tabs__nav-link { font-family: 'Cairo', sans-serif; }
+        
+        @media (max-width: 768px) {
+            .three-sliders__slide { width: 90%; }
+            .visit-tabs__tab-item { width: 90%; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Canvas لـ Three.js -->
+    <!-- Canvas لـ Three.js (خلفية المتحف ثلاثية الأبعاد) -->
     <canvas id="canvas-3d"></canvas>
 
-    <!-- طبقة الأنيميشن للتأثير البصري -->
+    <!-- طبقة الأنيميشن بالصورة التي أرسلتها -->
     <div class="animation-overlay" id="animationOverlay">
-        <div style="text-align:center; color: #b87c4f; font-size: 2rem; font-weight: bold;">المتحف المصري الكبير</div>
+        <div class="overlay-text">المتحف المصري الكبير</div>
     </div>
 
-    <!-- المحتوى الأصلي للموقع (مأخوذ من الكود الذي أرسلته بنفس الصور والنصوص) -->
+    <!-- المحتوى الأصلي بعد التعديل بطابع تراثي -->
     <div class="website-content" id="mainContent">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container" style="padding: initial;">
-                    <a class="navbar_box_logo img-block" href="https://gem.eg/ar">
-                        <img height="60" alt="المتحف المصري الكبير" src="https://cdn.gem.eg/wwwroot/images/Logo.png?ver=2025.10.27.02"/>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar_box_logo" href="#">
+                        <img src="https://cdn.gem.eg/wwwroot/images/Logo.png?ver=2025.10.27.02" alt="شعار المتحف"/>
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="القائمة">
                         <span class="navbar-toggler-icon">☰</span>
                     </button>
-                    <div class="collapse navbar-collapse" id="basic-navbar-nav">
+                    <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link" href="/visit/">الزيارة</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/whats-on/">يحدث الآن</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/collection/">المجموعات الأثرية</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/gem-experience/">تجربة المتحف</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">الزيارة</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">يحدث الآن</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">المجموعات الأثرية</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">تجربة المتحف</a></li>
                         </ul>
                     </div>
                 </div>
@@ -151,30 +196,30 @@
         </header>
 
         <main>
-            <!-- قسم البانر الرئيسي (Carousel) -->
-            <section class="hpb-section">
+            <!-- البانر الرئيسي (Carousel) -->
+            <section class="hpb-section" style="padding: 20px 0 40px;">
                 <div class="container">
                     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
+                        <div class="carousel-inner rounded-4 overflow-hidden">
                             <div class="carousel-item active">
-                                <img src="https://cdn.gem.eg/media/5223/home-banner2.jpeg?anchor=center&amp;mode=crop&amp;width=1920&amp;height=1080" class="d-block w-100" alt="بanner">
+                                <img src="https://cdn.gem.eg/media/5223/home-banner2.jpeg?anchor=center&amp;mode=crop&amp;width=1920&amp;height=1080" class="d-block w-100" alt="بانر">
                             </div>
                             <div class="carousel-item">
-                                <img src="https://cdn.gem.eg/media/5742/20221104-dsc_4372-edit-copy.jpeg?anchor=center&amp;mode=crop&amp;width=1920&amp;height=1080" class="d-block w-100" alt="banner2">
+                                <img src="https://cdn.gem.eg/media/5742/20221104-dsc_4372-edit-copy.jpeg?anchor=center&amp;mode=crop&amp;width=1920&amp;height=1080" class="d-block w-100" alt="بانر 2">
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- المجموعات الأثرية -->
-            <section class="home-section collections-section" style="padding: 60px 0;">
+            <!-- المجموعات الأثرية (نفس الصور) -->
+            <section class="home-section collections-section" style="padding: 50px 0;">
                 <div class="container">
                     <div class="section-header">
                         <h2 class="section-header__title">المجموعات الأثرية</h2>
-                        <p class="section-header__sub-title">تصفح مجموعة مختارة من المقتنيات الأثرية الرائعة بالمتحف المصري الكبير</p>
+                        <p class="section-header__sub-title">تصفح مجموعة مختارة من المقتنيات الأثرية الرائعة التي تعبر عن عظمة الحضارة المصرية القديمة</p>
                     </div>
-                    <div class="three-sliders" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <div class="three-sliders">
                         <div class="three-sliders__slide">
                             <img src="https://cdn.gem.eg/media/5424/golden-mask.jpeg?crop=0.19239215946903934,0,0.22927450719762732,0.0000000000000001263187085796&amp;cropmode=percentage&amp;width=675&amp;height=675" alt="قناع توت عنخ آمون">
                             <div class="three-sliders__slide-title">قناع الدفن الذهبي للملك توت عنخ آمون</div>
@@ -195,12 +240,12 @@
             <section class="home-section hololens-section">
                 <div class="container">
                     <div class="section-header">
-                        <h2 class="section-header__title" style="color:white;">تجربة الواقع المختلط الافتراضي</h2>
-                        <h5 class="section-header__sub-title" style="color:#ddd;">اكشف أسرار الأهرام من خلال تجربة واقع مختلط افتراضي متطورة.</h5>
+                        <h2 class="section-header__title" style="color: #f3cd81;">تجربة الواقع المختلط الافتراضي</h2>
+                        <h5 class="section-header__sub-title" style="color:#eeddbb;">اكشف أسرار الأهرام من خلال تجربة واقع مختلط متطورة</h5>
                     </div>
-                    <div class="hololens__backgroundImg" style="background-image: url('https://cdn.gem.eg/media/5417/edited-mixed-reality-image.jpeg?center=0.53254437869822491,0.46333333333333332&amp;mode=crop&amp;width=1920&amp;height=1280'); height: 400px; background-size: cover; border-radius: 20px;"></div>
-                    <div style="text-align: center; margin-top: 20px;">
-                        <a href="/visit/mixed-reality-experience/" class="more-box">المزيد +</a>
+                    <div class="hololens__backgroundImg" style="background-image: url('https://cdn.gem.eg/media/5417/edited-mixed-reality-image.jpeg?center=0.53254437869822491,0.46333333333333332&amp;mode=crop&amp;width=1920&amp;height=1280');"></div>
+                    <div style="text-align: center;">
+                        <a href="#" class="more-box">المزيد +</a>
                     </div>
                 </div>
             </section>
@@ -210,7 +255,7 @@
                 <div class="container">
                     <div class="section-header">
                         <h2 class="section-header__title">تجربة المتحف المصري الكبير</h2>
-                        <p class="section-header__sub-title">تربط تجربة المتحف المصري الكبير الزوّار بالأنشطة الثقافية الغنية</p>
+                        <p class="section-header__sub-title">تربط تجربة المتحف الزوّار بالأنشطة الثقافية الغنية والمبادرات المعاصرة</p>
                     </div>
                     <div class="visit-tabs">
                         <div class="visit-tabs__nav">
@@ -219,8 +264,8 @@
                             <a class="visit-tabs__nav-link" data-target="3">مركز الفنون والحرف</a>
                         </div>
                         <div class="visit-tabs__tab-content">
-                            <div class="visit-tabs__tab-item active">
-                                <div class="visit-tabs__tab-img-wrp"><img src="https://cdn.gem.eg/media/2588/whatson.jpeg?anchor=center&amp;mode=crop&amp;width=1028&amp;height=964" alt="يحدث الآن"></div>
+                            <div class="visit-tabs__tab-item">
+                                <div class="visit-tabs__tab-img-wrp"><img src="https://cdn.gem.eg/media/2588/whatson.jpeg?anchor=center&amp;mode=crop&amp;width=1028&amp;height=964" alt="فعاليات"></div>
                                 <div class="three-sliders__slide-title">يحدث الآن</div>
                             </div>
                             <div class="visit-tabs__tab-item">
@@ -240,13 +285,14 @@
         <footer class="footer">
             <div class="container footer__container">
                 <div class="footer__copyrights">
-                    <img src="https://cdn.gem.eg/wwwroot/images/Logo.png" width="60" alt="logo">
+                    <img src="https://cdn.gem.eg/wwwroot/images/Logo.png" width="55" alt="logo" style="filter: brightness(0.9);">
                     <p class="copyrights__text">© 2026 المتحف المصري الكبير. جميع الحقوق محفوظة.</p>
                 </div>
                 <div class="social-media-icons-container">
-                    <a href="https://www.facebook.com/GrandEgyptianMuseum"><i class="fab fa-facebook"></i></a>
-                    <a href="https://twitter.com/GrandEGMuseum"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/grandegyptianmuseum"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </footer>
@@ -263,221 +309,164 @@
 
     <script type="module">
         import * as THREE from 'three';
-        import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
-
-        // --- إعداد المشهد ثلاثي الأبعاد (خلفية المتحف) ---
+        
+        // --- إعداد المشهد ثلاثي الأبعاد (خلفية المتحف القديم) ---
         const canvas = document.getElementById('canvas-3d');
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x050510);
-        scene.fog = new THREE.FogExp2(0x050510, 0.008); // ضباب خفيف
-
+        scene.background = new THREE.Color(0x1a1308);
+        scene.fog = new THREE.FogExp2(0x1a1308, 0.012);
+        
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 2, 8);
+        camera.position.set(0, 2.2, 9);
         
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: false });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         
-        // --- إضاءة دافئة تشبه أجواء المتحف ---
-        const ambientLight = new THREE.AmbientLight(0x404060);
+        // إضاءة دافئة
+        const ambientLight = new THREE.AmbientLight(0x443a2a);
         scene.add(ambientLight);
-        const mainLight = new THREE.DirectionalLight(0xffeedd, 1);
-        mainLight.position.set(5, 10, 7);
+        const mainLight = new THREE.DirectionalLight(0xffe4b5, 1.2);
+        mainLight.position.set(4, 8, 5);
         scene.add(mainLight);
-        const fillLight = new THREE.PointLight(0xccaa88, 0.5);
-        fillLight.position.set(-2, 3, 4);
+        const fillLight = new THREE.PointLight(0xccaa77, 0.6);
+        fillLight.position.set(-3, 3, 4);
         scene.add(fillLight);
-        const backLight = new THREE.PointLight(0x88aaff, 0.3);
-        backLight.position.set(0, 2, -5);
-        scene.add(backLight);
         
-        // --- أعمدة مصرية ثلاثية الأبعاد (إحساس بالمتحف) ---
-        const pillarMat = new THREE.MeshStandardMaterial({ color: 0xcdb28c, roughness: 0.4, metalness: 0.7 });
+        // أعمدة مصرية (أكثر تفصيلاً)
+        const stoneMat = new THREE.MeshStandardMaterial({ color: 0xbd9e6b, roughness: 0.5, metalness: 0.3 });
         const createPillar = (x, z) => {
             const group = new THREE.Group();
-            const base = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.3, 0.8), pillarMat);
+            const base = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.3, 0.9), stoneMat);
             base.position.y = 0;
-            const column = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.45, 3, 12), pillarMat);
-            column.position.y = 1.7;
-            const topCap = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.2, 0.9), pillarMat);
-            topCap.position.y = 3.2;
-            group.add(base, column, topCap);
-            group.position.set(x, 0, z);
+            const column = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.55, 3.2, 10), stoneMat);
+            column.position.y = 1.8;
+            const capital = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.25, 0.85), stoneMat);
+            capital.position.y = 3.3;
+            group.add(base, column, capital);
+            group.position.set(x, -0.2, z);
             return group;
         };
         
-        // إضافة أعمدة حول المشهد
-        const pillarsPos = [[-4, -3], [4, -3], [-3.5, -5], [3.5, -5], [-4.5, 2], [4.5, 2], [0, -6]];
-        pillarsPos.forEach(pos => {
-            scene.add(createPillar(pos[0], pos[1]));
-        });
+        const pillars = [[-5, -4], [5, -4], [-4.5, -6], [4.5, -6], [-5, 2], [5, 2], [0, -7], [0, 3.5]];
+        pillars.forEach(pos => scene.add(createPillar(pos[0], pos[1])));
         
-        // --- تمثال فرعوني في المنتصف (كـ "قلب" المتحف) ---
-        const statueGeo = new THREE.BoxGeometry(1.2, 2.2, 1.2);
-        const statueMat = new THREE.MeshStandardMaterial({ color: 0xcfa668, emissive: 0x442200, roughness: 0.3 });
-        const statue = new THREE.Mesh(statueGeo, statueMat);
-        statue.position.set(0, 1.1, 0);
-        statue.castShadow = true;
-        statue.receiveShadow = false;
+        // تمثال فرعوني كبير
+        const bodyGeo = new THREE.BoxGeometry(1.1, 2.4, 1.1);
+        const statueMat = new THREE.MeshStandardMaterial({ color: 0xdab87a, emissive: 0x442200 });
+        const statue = new THREE.Mesh(bodyGeo, statueMat);
+        statue.position.set(0, 1.2, -1);
         scene.add(statue);
-        // إضافة تاج فرعوني (كرة صغيرة)
-        const crown = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.7, 0.4, 8), new THREE.MeshStandardMaterial({ color: 0xefb87e, metalness: 0.8 }));
-        crown.position.set(0, 2.3, 0);
-        scene.add(crown);
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.6, 24, 24), statueMat);
+        head.position.set(0, 2.6, -1);
+        scene.add(head);
         
-        // --- أرضية عاكسة (مرمر) ---
-        const floorMat = new THREE.MeshStandardMaterial({ color: 0x8b7a64, roughness: 0.2, metalness: 0.1 });
-        const floor = new THREE.Mesh(new THREE.PlaneGeometry(14, 12), floorMat);
-        floor.rotation.x = -Math.PI / 2;
-        floor.position.y = -0.2;
-        floor.receiveShadow = true;
+        // أرضية رملية
+        const floorMat = new THREE.MeshStandardMaterial({ color: 0x9c7e54, roughness: 0.8, metalness: 0.05 });
+        const floor = new THREE.Mesh(new THREE.PlaneGeometry(18, 18), floorMat);
+        floor.rotation.x = -Math.PI/2;
+        floor.position.y = -0.3;
         scene.add(floor);
         
-        // --- جزيئات ذهبية طائرة (إحساس بالروحانية) ---
-        const particleCount = 800;
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlePositions = new Float32Array(particleCount * 3);
-        for (let i = 0; i < particleCount; i++) {
-            particlePositions[i*3] = (Math.random() - 0.5) * 20;
-            particlePositions[i*3+1] = Math.random() * 5;
-            particlePositions[i*3+2] = (Math.random() - 0.5) * 15 - 5;
+        // جزيئات ذهبية طائرة
+        const particleCount = 1200;
+        const particleGeo = new THREE.BufferGeometry();
+        const posArray = new Float32Array(particleCount * 3);
+        for(let i = 0; i < particleCount; i++) {
+            posArray[i*3] = (Math.random() - 0.5) * 22;
+            posArray[i*3+1] = Math.random() * 5.5;
+            posArray[i*3+2] = (Math.random() - 0.5) * 18 - 5;
         }
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-        const particleMatGlow = new THREE.PointsMaterial({ color: 0xffaa66, size: 0.05, transparent: true, opacity: 0.6 });
-        const particles = new THREE.Points(particlesGeometry, particleMatGlow);
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particleMat = new THREE.PointsMaterial({ color: 0xffbb66, size: 0.06, transparent: true, opacity: 0.7 });
+        const particles = new THREE.Points(particleGeo, particleMat);
         scene.add(particles);
         
-        // --- تحريك الكاميرا (Zoom In / Zoom Out) مرة واحدة عند التحميل ---
-        // نبدأ من بعيد نسبياً ثم نقترب ونعود
+        // --- تأثير الدخول (Zoom In/Out) مع الصورة الخلفية ---
         let startTime = performance.now();
-        const duration = 3000; // 3 ثواني للحركة
+        const duration = 3200; // 3.2 ثانية
         
-        function animateEntrance(now) {
+        function entranceAnimation(now) {
             const elapsed = now - startTime;
             let t = Math.min(1, elapsed / duration);
-            // حركة سهلة (ease in out)
             const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
             
-            // المسافة: نبدأ من 12 ثم نقترب إلى 3 ثم نرجع إلى 7 (الوضع النهائي)
             let distance;
-            if (t <= 0.6) {
-                // مرحلة الدخول (zoom in)
-                const subT = t / 0.6; // 0->1
-                distance = 12 - (subT * 9); // 12 -> 3
+            if(t <= 0.6) {
+                const subT = t / 0.6;
+                distance = 12 - (subT * 8); // 12 -> 4
             } else {
-                // مرحلة الخروج (zoom out)
-                const subT = (t - 0.6) / 0.4; // 0->1
-                distance = 3 + (subT * 4); // 3 -> 7
+                const subT = (t - 0.6) / 0.4;
+                distance = 4 + (subT * 4.5); // 4 -> 8.5
             }
-            
             camera.position.z = distance;
-            camera.position.y = 1.5 + (distance === 3 ? 0.2 : 0); // ارتفاع بسيط
-            camera.lookAt(0, 1.2, 0);
+            camera.position.y = 1.6 + (distance < 5 ? 0.3 : 0);
+            camera.lookAt(0, 1.5, -1);
             
-            if (t < 1) {
-                requestAnimationFrame(animateEntrance);
+            if(t < 1) {
+                requestAnimationFrame(entranceAnimation);
             } else {
-                // بعد انتهاء الأنيميشن، نخفي طبقة الأوفرلاي ونظهر المحتوى
                 document.getElementById('animationOverlay').classList.add('fade-out');
                 setTimeout(() => {
                     document.getElementById('animationOverlay').style.display = 'none';
                     document.getElementById('mainContent').classList.add('visible');
-                }, 1500);
-                // نستمر في التحريك البطيء للجزيئات والأعمدة قليلاً
+                }, 1800);
             }
         }
         
-        // بدء الحركة بعد تحميل الصفحة بقليل
         setTimeout(() => {
             startTime = performance.now();
-            requestAnimationFrame(animateEntrance);
-        }, 100);
+            requestAnimationFrame(entranceAnimation);
+        }, 200);
         
-        // --- التحريك المستمر للجزيئات والتمثال (تأثير 3D حي) ---
+        // تحريك الجزيئات
         let time = 0;
         function animateScene() {
             requestAnimationFrame(animateScene);
-            time += 0.008;
-            // دوران خفيف للجزيئات
-            particles.rotation.y = time * 0.1;
-            particles.rotation.x = Math.sin(time * 0.2) * 0.1;
-            // رفع وهبوط بسيط للتمثال
-            statue.position.y = 1.1 + Math.sin(time * 2) * 0.02;
-            crown.position.y = 2.3 + Math.sin(time * 2) * 0.02;
-            // تدوير الأضواء
-            fillLight.position.x = -2 + Math.sin(time) * 0.5;
+            time += 0.006;
+            particles.rotation.y = time * 0.08;
+            particles.rotation.x = Math.sin(time * 0.15) * 0.1;
+            statue.position.y = 1.2 + Math.sin(time * 1.8) * 0.008;
+            head.position.y = 2.6 + Math.sin(time * 1.8) * 0.008;
             
             renderer.render(scene, camera);
         }
         animateScene();
         
-        // --- ضبط حجم الشاشة ---
-        window.addEventListener('resize', onWindowResize, false);
-        function onWindowResize() {
+        window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+        });
         
-        // إضافة تفاعل بسيط: تحريك الكاميرا مع الماوس بعد الأنيميشن (اختياري)
-        let controlsEnabled = false;
-        setTimeout(() => {
-            controlsEnabled = true;
-            const controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.autoRotate = false;
-            controls.enableZoom = true;
-            controls.enablePan = false;
-            controls.target.set(0, 1.2, 0);
-            // تعديل حلقة التحكم
-            const originalRender = animateScene;
-            window.animateScene = () => {
-                if(controlsEnabled) controls.update();
-                originalRender();
-            };
-            // استبدال الدالة
-            window.animateScene();
-        }, 4000);
-        
-        // بسيط: بديل لعدم وجود bootstrap js لكننا نضمن ظهور التاب
+        // تفعيل الأزرار (للتأكد من عمل التبويبات)
         document.querySelectorAll('.visit-tabs__nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 document.querySelectorAll('.visit-tabs__nav-link').forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
-                // هنا يمكن تبديل المحتوى لكننا نبسطها
             });
         });
         
-        // إظهار المحتوى في حال تأخر الأنيميشن
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                if(!document.getElementById('mainContent').classList.contains('visible')) {
-                    document.getElementById('mainContent').classList.add('visible');
-                    document.getElementById('animationOverlay').style.display = 'none';
-                }
-            }, 5000);
-        });
+        // حالياً إظهار المحتوى بعد مدة أقصاها
+        setTimeout(() => {
+            if(!document.getElementById('mainContent').classList.contains('visible')) {
+                document.getElementById('mainContent').classList.add('visible');
+                document.getElementById('animationOverlay').style.display = 'none';
+            }
+        }, 5000);
     </script>
     
-    <style>
-        /* تعديلات إضافية للتوافق مع 3D */
-        .website-content { background: white; position: relative; z-index: 5; margin-top: 0; }
-        .navbar, .footer { background: white; }
-        .section-header__title { color: #b87c4f; }
-        .more-box { background: #b87c4f; }
-        .visit-tabs__nav-link.active { background: #b87c4f; }
-        body { overflow-x: hidden; }
-        .carousel-item img { max-height: 500px; object-fit: cover; width: 100%; }
-        .container { max-width: 1200px; margin: auto; }
-        @media (max-width: 768px) {
-            .three-sliders__slide { width: 90%; margin: 0 auto; }
-            .visit-tabs__tab-item { width: 90%; }
-        }
-    </style>
-    <!-- إضافة Bootstrap CSS بسيط للكاروسيل -->
+    <!-- Bootstrap CSS & JS للكاروسيل والتبويبات -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* إضافات بسيطة للتوافق */
+        .navbar-toggler { background-color: #d4af37; border: none; }
+        .carousel-inner { border-radius: 20px; box-shadow: 0 15px 25px rgba(0,0,0,0.2); }
+        .three-sliders__slide, .visit-tabs__tab-item { transition: all 0.3s ease; }
+        .website-content { background: #fef7e8; }
+        .footer .container { gap: 20px; }
+    </style>
 </body>
 </html>
